@@ -1,0 +1,63 @@
+version: '2'
+services:
+  api-gateway:
+    image: caapim/gateway
+# docker run --net bothamnet -ip 172.18.0.110 -it -p 8080:8080 -p 8443:8443 -p 9443:9443 -e SSG_CLUSTER_COMMAND=create -e SSG_DATABASE_JDBC_URL=jdbc:mysql://172.18.0.110:3306/ssg -e SSG_DATABASE_ADMIN_USER=root -e SSG_DATABASE_ADMIN_PASS=7layer caapim/gateway
+#    cpus: 4
+#    mem_limit: 6g
+#    memswap_limit: 6g
+#    mem_swappiness: 0
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+      - "9443:9443"
+    volumes:
+      - /opt/SecureSpan/Gateway/node/default/etc/bootstrap/services/restman
+    environment:
+      ACCEPT_LICENSE: "true"
+      SSG_LICENSE: "yes"
+      SSG_CLUSTER_COMMAND: create
+      SSG_DATABASE_ADMIN_USER: root
+      SSG_DATABASE_ADMIN_PASS: 7layer     
+      SSG_ADMIN_USERNAME: admin
+      SSG_ADMIN_PASSWORD: 7layer
+      SSG_DATABASE_JDBC_URL: jdbc:mysql://mysql-server:3306/root
+#     SSG_DATABASE_JDBC_URL: jdbc:mysql://173.18.0.110:3306/ssg
+      SSG_DATABASE_USER: root
+      SSG_DATABASE_PASSWORD: 7layer
+      SSG_CLUSTER_HOST: mycompany.host.com
+      SSG_CLUSTER_PASSWORD: 7layer
+      SSG_JVM_HEAP: 4g
+      EXTRA_JAVA_ARGS: "-XX:ParallelGCThreads=4 -Dcom.l7tech.bootstrap.autoTrustSslKey=trustAnchor,TrustedFor.SSL,TrustedFor.SAML_ISSUER -Dcom.l7tech.bootstrap.env.license.enable=true"
+      
+    networks:
+      mynet:
+        ipv4_address: 173.18.0.111      
+
+  mysql-server:
+    image: mysql:5.7
+    mem_limit: 512m
+    ports:
+      - "77:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=7layer  
+# as dockerrun command
+# docker run --net bothamnet --ip 172.18.0.110 -it -p 77:3306 -e MYSQL_RANDOM_ROOT_PASSWORD=true -e MYSQL_USER=ssg -e MYSQL_PASSWORD=7layer -e MYSQL_DATABASE=ssg mysql:5.7  
+#docker run --net bothamnet --ip 172.18.0.110 -it -p 77:3306 -e MYSQL_ROOT_PASSWORD=7layer mysql:5.7
+    command:
+      - "--character-set-server=utf8"
+      - "--innodb_log_buffer_size=32M"
+      - "--innodb_log_file_size=80M"
+      - "--max_allowed_packet=8M"
+    networks:
+      mynet:
+        ipv4_address: 173.18.0.110         
+      
+      
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 173.18.0.0/16
+        gateway: 173.18.0.1      
