@@ -1,0 +1,149 @@
+All steps to get Jenkins running as a container on EC2-Ubuntu.
+
+
+1) Create a Amazon EC2 instance.
+	Choose.. Ubuntu Server 16.04 LTS (HVM), SSD Volume Type - ami-aa2ea6d0
+	Use existing key pair (rooney) doesnt matter which one as long as you have access to its .pem
+
+2) Once the instance is up, choose connect and grab the connection string.
+Linux..
+	Cd to where the .pem is located..
+	ssh -i "rooney.pem" ubuntu@ec2-184-73-55-166.compute-1.amazonaws.com
+	Note this DNS name changes with each restart of the EC2 instance
+
+3) You are now signed into your EC2 Ubuntu system
+
+4) sudo apt-get update 		← Get all updates
+apt-get update downloads the package lists from the repositories and "updates" them to get information on the newest versions of packages and their dependencies. 
+
+5) sudo apt-get upgrade		← Upgrade
+apt-get upgrade actually installs newer versions of the packages you have.
+
+
+6) Install docker  (Follow these instructions), should put these in a script?
+	https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
+
+
+
+
+First, add the GPG key for the official Docker repository to the system:
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+Add the Docker repository to APT sources:
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+
+
+
+7) Get the Jenkins Image:-
+
+docker pull jenkins/jenkins:lts
+
+
+docker run -p 8080:8080 -p 50000:50000 -v/home/ubuntu/jenkins:/var/jenkins_home jenkins/jenkins:lts
+
+	The -v (volume) ensures state (all updates/changes to jenkins install/config is saved on the host in the folder /home/ubuntu/jenkins)
+
+8) Access the jenkins web interface at
+	http://ec2-184-73-55-166.compute-1.amazonaws.com:8080/
+
+again this address will change once the EC2 instance is restarted
+
+
+
+
+touch: cannot touch '/var/jenkins_home/copy_reference_file.log': Permission denied
+
+on host:-
+chown 1000 jenkins ← shared vol dir
+
+
+
+
+On first run of jenkins you will need to setup the admin password, see the output from the run for this, also on first run install all recommended plugins, the state will save in the host mounted dir.
+
+/home/ubuntu/jenkins
+
+
+
+manage jenkins
+global tool config
+select to auto install java SDK as “java” (8u152)
+
+select to auto install git
+
+select to auto install maven as “maven” (3.5.2)
+
+
+
+
+
+
+
+
+	
+7) Get the Sonar Image:-
+
+Memory requirements for SONAR QUBE??  (2GB)
+
+
+docker pull sonarqube
+
+docker run -it -p 9000:9000 sonarqube 
+
+
+
+On Jenkins
+install sonar scanner plugin
+after install/restart
+goto configure global tools and select to install Sonar
+
+
+in jenkins/manage/configure
+set the correct Sonar server name/ip http://172.17.0.3:9000
+and name the install SonarServer ← this has to match what you use in
+the jenkinsfile
+
+
+
+
+Next job, pickup the jenkins config (all dir) and drop it on a different install, see if all works…
+
+n Jenkins
+install sonar scanner plugin
+after install/restart
+goto configure global tools and select to install Sonar
+
+
+in jenkins/manage/configure
+set the correct Sonar server name/ip http://172.17.0.3:9000
+and name the install SonarServer ← this has to match what you use in
+the jenkinsfile
+B
+B
+
+Check webhooks to external ip on 4813 network
+
+Auto deploy option?
+Via SSH
+	https://medium.com/@weblab_tech/how-to-publish-artifacts-in-jenkins-f021b17fde71
+
+Dropbox
+https://wiki.jenkins.io/display/JENKINS/Publish+over+Dropbox+Plugin
+
+To Tomcat
+https://stackoverflow.com/questions/37787805/jenkins2-pipeline-deploy-on-tomcat
+
+
+
+
+https://jfrog.com/open-source/
+docker pull docker.bintray.io/jfrog/artifactory-oss
+
+
+
+
+
+
+

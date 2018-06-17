@@ -1,0 +1,66 @@
+version: '2'
+services:
+  jenkins:
+    container_name: jenkins-1
+    image: "jenkins:2.60.3"
+    ports:
+     - "81:8080"
+     - "51:50000"
+    volumes:
+     - ./jenkins-1:/var/jenkins_home
+    networks:
+      sxnet:
+        ipv4_address: 172.19.0.101              
+# http://localhost:81
+
+  sonar:
+    container_name: sonar-1
+    image: "sonarqube"
+    ports:
+     - "92:9092"
+     - "90:9000"
+    #volumes:
+     #- sonar-1:/sonatype-work
+    networks:
+      sxnet:
+        ipv4_address: 172.19.0.102      
+# http://localhost:90
+
+  nexus:
+    container_name: nexus-1
+    image: "sonatype/nexus:oss"
+    ports:
+     - "85:8081"     
+    volumes:
+     - ./nexus-1:/sonatype-work
+    networks:
+      sxnet:
+        ipv4_address: 172.19.0.100     
+# http://localhost:85/nexus
+
+#  jira:
+#    container_name: jira-1
+#    image: "cptactionhank/atlassian-jira:latest"
+#    ports:
+#     - "8888:8080"     
+#    volumes:
+#     - ./jhome-1:/var/atlassian/jira
+#    networks:
+#      sxnet:
+#        ipv4_address: 172.19.0.104    
+# http://localhost:8888
+
+
+networks:
+  sxnet:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.19.0.0/16
+        gateway: 172.19.0.1
+
+  
+     
+
+     
+    
