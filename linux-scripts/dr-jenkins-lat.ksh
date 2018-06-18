@@ -6,7 +6,7 @@
 ##
 ##
 ################################################################
-sudo docker run --restart always -e B_SYSTEM_NAME=${B_SYSTEM_NAME}-jenkins -e JAVA_OPTS=-Duser.timezone=America/New_York -p 8080:8080 -p 50000:50000 -v /home/steve/jenkins:/var/jenkins_home jenkins/jenkins:lts
+sudo docker run --restart always -e B_SYSTEM_NAME=${B_SYSTEM_NAME}-jenkins -e JAVA_OPTS=-Duser.timezone=America/New_York -p 8080:8080 -p 50000:50000 --net bothamnet --ip 172.18.0.101 -v /home/steve/jenkins:/var/jenkins_home jenkins/jenkins:lts
 #
 #
 # --restart always            Ensures the container will restart
@@ -18,6 +18,10 @@ sudo docker run --restart always -e B_SYSTEM_NAME=${B_SYSTEM_NAME}-jenkins -e JA
 #                             container
 #
 # -p 8080:8080                Map host post to container port
+#
+# --net bothamnet             Associate with this internal network
+#
+# --ip                        Assign a static ip
 #
 # -v /home/steve/jenkins:/var/...
 #                             Persist to host at this dir
