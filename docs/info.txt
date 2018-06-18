@@ -1,7 +1,5 @@
 All steps to get Jenkins running as a container on EC2-Ubuntu.
 
-And anotherMade some changes to this file
-
 1) Create a Amazon EC2 instance.
 	Choose.. Ubuntu Server 16.04 LTS (HVM), SSD Volume Type - ami-aa2ea6d0
 	Use existing key pair (rooney) doesnt matter which one as long as you have access to its .pem
