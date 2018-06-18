@@ -1,3 +1,10 @@
+#############################################################################
+##
+##
+##
+##
+#############################################################################
+
 All steps to get Jenkins running as a container on EC2-Ubuntu.
 
 1) Create a Amazon EC2 instance.
@@ -12,10 +19,10 @@ Linux..
 
 3) You are now signed into your EC2 Ubuntu system
 
-4) sudo apt-get update 		← Get all updates
+4) sudo apt-get update 		Get all upates
 apt-get update downloads the package lists from the repositories and "updates" them to get information on the newest versions of packages and their dependencies. 
 
-5) sudo apt-get upgrade		← Upgrade
+5) sudo apt-get upgrade		Upgrade
 apt-get upgrade actually installs newer versions of the packages you have.
 
 
@@ -55,7 +62,7 @@ again this address will change once the EC2 instance is restarted
 touch: cannot touch '/var/jenkins_home/copy_reference_file.log': Permission denied
 
 on host:-
-chown 1000 jenkins ← shared vol dir
+chown 1000 jenkins shared vol dir
 
 
 
@@ -68,11 +75,11 @@ On first run of jenkins you will need to setup the admin password, see the outpu
 
 manage jenkins
 global tool config
-select to auto install java SDK as “java” (8u152)
+select to auto install java SDK as JDK8
 
 select to auto install git
 
-select to auto install maven as “maven” (3.5.2)
+select to auto install maven as Maven352
 
 
 
@@ -101,13 +108,13 @@ goto configure global tools and select to install Sonar
 
 in jenkins/manage/configure
 set the correct Sonar server name/ip http://172.17.0.3:9000
-and name the install SonarServer ← this has to match what you use in
+and name the install SonarServer â†� this has to match what you use in
 the jenkinsfile
 
 
 
 
-Next job, pickup the jenkins config (all dir) and drop it on a different install, see if all works…
+Next job, pickup the jenkins config (all dir) and drop it on a different install, see if all worksâ€¦
 
 n Jenkins
 install sonar scanner plugin
@@ -117,7 +124,7 @@ goto configure global tools and select to install Sonar
 
 in jenkins/manage/configure
 set the correct Sonar server name/ip http://172.17.0.3:9000
-and name the install SonarServer ← this has to match what you use in
+and name the install SonarServer â†� this has to match what you use in
 the jenkinsfile
 B
 B
