@@ -1,0 +1,57 @@
+1) run updater and let it do its thing
+2) sudo apt-get update
+3) sudo apt-get upgrade
+3a) download and install teamviewer (use browser to find)
+3b) install openssh-server
+        sudo apt-get install openssh-server
+4) install net-tools (ifconfig)
+	sudo apt install net-tools
+5) ifconfig to get dynamically assigned ip, 192.168.1.xx 
+        use this to login remtotely
+6) update network to static ip,
+        netplan
+           see 
+   cd /etc/netplan
+   create or edit file 01-netcfg.yaml
+add
+##### START
+# This file describes the network interfaces available on your system
+# For more information, see netplan(5).
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eno1:
+     dhcp4: no
+     addresses: [192.168.1.230/24]
+     gateway4: 192.168.1.1
+     nameservers:
+       addresses: [8.8.8.8,8.8.4.4]
+##### END
+7) sudo netplan apply
+     if this is correct it should drop your connection and you
+     will have to connect with static address above
+
+8) set so dont require password to sudo
+sudo visudo
+add to end
+steve ALL=(ALL) NOPASSWD: ALL
+
+9) install docker
+       sudo apt install docker.io
+
+10) pull items from repos
+      cd $HOME
+      git clone https://github.com/bothman231/jenkins.git
+    
+      cd $HOME
+      git clone https://github.com/bothman231/ubuntu18.git
+
+11) create a docker network
+      
+       
+
+ 
+A
+A
+

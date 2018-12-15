@@ -1,8 +1,8 @@
 #!/bin/bash
 ################################################################
-## Script for running mysql in a container
+## Script for running wordpress in a container
 ###
-## SXB   10OCT18   Created
+## SXB   25OCT18   Created
 ##
 ##
 ################################################################
@@ -20,7 +20,5 @@ echo "directory="${directory}
 fullscriptname=${directory}/${scriptname}
 echo "fullscriptname="${fullscriptname}
 
-# MYSQL_ROOT_PASSWORD is set in the environment
-
-docker run --name mysql4 --net bothamnet --ip 172.18.0.111 -p 3306:3306 -v /home/steve/mysqldata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} -d mysql:8.0
+docker run --net bothamnet --ip 172.18.0.115 --name wp -p 80:80 --link mysql4:mysql -d wordpress
 
