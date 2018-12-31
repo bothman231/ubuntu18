@@ -1,0 +1,32 @@
+Ports for docker go:-
+remote:local
+
+Network:- bothamnet 172.18.0.0
+
+Active:-
+
+Jenkins		172.18.0.101	Remote 8080  Local 8080
+                                Remote 50000 Local 50000
+
+http://hp-build:8080
+
+--------------------------
+
+Sonar           172.18.0.100    Remote 9010  Local 9000
+                                Remote 9020  Local 9020
+
+http://hp-build:9010
+
+--------------------------
+
+Jira            172.18.0.109    Remote 8089  Local 8080
+
+http://hp-build:8089
+
+--------------------------
+
+Others:-
+
+
+
+
