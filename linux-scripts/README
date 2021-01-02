@@ -19,7 +19,7 @@ http://hp-build:9010
 
 --------------------------
 
-Jira            172.18.0.109    Remote 8089  Local 8080
+Jira            172.18.0.109    Remote 8089  Local 8080          dr-jira.ksh
 
 http://hp-build:8089
 
@@ -34,6 +34,12 @@ http://hp-build:8092
 Mule 4          172.18.0.107    Remote 9088  Local 8081
 
 http://hp-build:9088
+
+--------------------------
+
+Wiki (Confluence) 172.18.0.107    Remote 8091  Local 8090
+
+http://hp-build:8090
 
 --------------------------
 
