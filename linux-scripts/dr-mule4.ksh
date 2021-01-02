@@ -8,7 +8,8 @@
 ################################################################
 #sudo docker run --restart always -v /home/steve/mule/apps:/opt/mule/apps -e B_SYSTEM_NAME=${B_SYSTEM_NAME}-mule4 -e JAVA_OPTS=-Duser.timezone=America/New_York -p 9088:8081 --net bothamnet --ip 172.18.0.107 vertigo/mule
 
-sudo docker run --restart always -v /home/steve/mule/apps:/opt/mule/apps -v /home/steve/mule/logs:/opt/mule/logs -e B_SYSTEM_NAME=${B_SYSTEM_NAME}-mule4 -e JAVA_OPTS=-Duser.timezone=America/New_York -p 9088:8081 --net bothamnet --ip 172.18.0.107 vertigo/mule    
+# Works but is 411 CE version of mule
+#sudo docker run --restart always -v /home/steve/mule/apps:/opt/mule/apps -v /home/steve/mule/logs:/opt/mule/logs -e B_SYSTEM_NAME=${B_SYSTEM_NAME}-mule4 -e JAVA_OPTS=-Duser.timezone=America/New_York -p 9088:8081 --net bothamnet --ip 172.18.0.107 vertigo/mule    
 
 
 # No volume
@@ -17,4 +18,7 @@ sudo docker run --restart always -v /home/steve/mule/apps:/opt/mule/apps -v /hom
 # connect to running instance
 
 #sudo docker exec -it {id} /bin/bash 
+
+# EE ?
+sudo docker run --restart always -v /home/steve/mule/apps:/opt/mule/apps -v /home/steve/mule/logs:/opt/mule/logs -e B_SYSTEM_NAME=${B_SYSTEM_NAME}-mule4 -e JAVA_OPTS=-Duser.timezone=America/New_York -p 9088:8081 --net bothamnet --ip 172.18.0.107 vjavastreets/mule:latest
 
